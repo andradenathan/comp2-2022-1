@@ -94,6 +94,10 @@ public class Veiculo {
         this.autonomia_km_l = autonomia_km_l;
     }
 
+    public void alterarKmRodados(double km_rodados) {
+        this.km_rodados = km_rodados;
+    }
+
     public Boolean abastecerTanque(double litros) {
         if(this.validarProp(litros) && (this.tanque_atual + litros <= this.tanque_capacid)) {
             this.tanque_atual += litros;
