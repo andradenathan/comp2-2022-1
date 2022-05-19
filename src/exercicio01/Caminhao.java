@@ -1,3 +1,5 @@
+package exercicio01;
+
 /**
  * Autor: Nathan Andrade dos Santos Lobo
  * DRE: 120082390
