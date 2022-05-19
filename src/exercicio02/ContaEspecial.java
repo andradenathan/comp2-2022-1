@@ -1,3 +1,8 @@
+/**
+ * Autor: Nathan Andrade dos Santos Lobo
+ * DRE: 120082390
+ */
+
 package exercicio02;
 
 public class ContaEspecial extends ContaCorrente {
