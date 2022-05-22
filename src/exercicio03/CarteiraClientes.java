@@ -3,7 +3,7 @@
  * DRE: 120082390
  */
 
-package exercicio02;
+package exercicio03;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,6 @@ public class CarteiraClientes implements IAuditoria {
     }
 
     public double somaSaldo() {
-        //TODO: Verificar e validar como será feito a implementação do método.
         double saldoTotal = 0;
         for(int i = 0; i < this.clientes.size(); i++) {
             Cliente cliente = this.clientes.get(i);
@@ -61,7 +60,6 @@ public class CarteiraClientes implements IAuditoria {
     }
 
     public Boolean removerCliente(String[] cpfs) {
-        //TODO: Refazer a busca por O(n).
         for(int i = 0; i < this.clientes.size(); i++) {
             Cliente cliente = this.clientes.get(i);
 

@@ -3,7 +3,7 @@
  * DRE: 120082390
  */
 
-package exercicio02;
+package exercicio03;
 
 public class ContaPoupanca extends ContaCorrente {
     public ContaPoupanca(int numero, int matriculaCliente) {

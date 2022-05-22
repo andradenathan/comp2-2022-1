@@ -3,7 +3,7 @@
  * DRE: 120082390
  */
 
-package exercicio02;
+package exercicio03;
 
 public interface IAuditoria {
     public double somaSaldo();

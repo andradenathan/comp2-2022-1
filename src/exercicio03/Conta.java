@@ -3,7 +3,7 @@
  * DRE: 120082390
  */
 
-package exercicio02;
+package exercicio03;
 
 public abstract class Conta {
     protected double saldo;
@@ -11,6 +11,8 @@ public abstract class Conta {
     protected int matriculaCliente;
 
     public Conta(int numero, int matriculaCliente) {
+        this.numero = numero;
+        this.matriculaCliente = matriculaCliente;
         this.saldo = 0;
     }
     

@@ -1,4 +1,4 @@
-package exercicio01;
+package exercicio02;
 
 /**
  * Autor: Nathan Andrade dos Santos Lobo

@@ -3,7 +3,7 @@
  * DRE: 120082390
  */
 
-package exercicio02;
+package exercicio03;
 
 public class Cliente extends Pessoa {
     
@@ -28,7 +28,6 @@ public class Cliente extends Pessoa {
         super(cpf, nome);
     }
 
-    //TODO: Validar se esse método está definido corretamente.
     public int geraMatricula() {
         return ++geradorMatricula;
     }
