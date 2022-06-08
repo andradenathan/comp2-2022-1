@@ -5,4 +5,5 @@ public interface IConta {
     public void depositar(double valor);
     public double getSaldo();
     public int getNumero();
+    public int getMatriculaCliente();
 }

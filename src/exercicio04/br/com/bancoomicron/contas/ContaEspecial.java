@@ -49,4 +49,9 @@ public class ContaEspecial implements IConta {
     public double getSaldo() {
         return this.saldo;
     }
+
+    @Override
+    public int getMatriculaCliente() {
+        return this.matriculaCliente;
+    }
 }

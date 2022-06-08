@@ -36,4 +36,9 @@ public class ContaCorrente implements IConta {
     public double getSaldo() {
         return this.saldo;
     }
+
+    @Override
+    public int getMatriculaCliente() {
+        return this.matriculaCliente;
+    }
 }

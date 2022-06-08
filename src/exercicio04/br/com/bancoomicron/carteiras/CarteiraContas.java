@@ -7,7 +7,6 @@ package exercicio04.br.com.bancoomicron.carteiras;
 
 import java.util.ArrayList;
 
-import exercicio04.br.com.bancoomicron.contas.Conta;
 import exercicio04.br.com.bancoomicron.contas.IConta;
 import exercicio04.br.com.bancoomicron.pessoas.Cliente;
 
