@@ -14,7 +14,9 @@ public class ContaEspecial implements IConta {
     private final double taxaIof = 100;
 
     public ContaEspecial(int numero, int matriculaCliente) {
-        
+        this.numero = numero;
+        this.matriculaCliente = matriculaCliente;
+        this.saldo = 0;
     }
     
     public void depositar(double valor) {

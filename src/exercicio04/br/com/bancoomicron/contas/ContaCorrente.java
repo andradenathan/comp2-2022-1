@@ -10,7 +10,7 @@ public class ContaCorrente implements IConta {
     protected int numero;
     protected int saldo;
 
-    ContaCorrente(int numero, int matriculaCliente) {
+    public ContaCorrente(int numero, int matriculaCliente) {
         this.matriculaCliente = matriculaCliente;
         this.numero = numero;
         this.saldo = 0;

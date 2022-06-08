@@ -14,7 +14,7 @@ public class Cliente extends Pessoa {
     private int matricula;
     private static int geradorMatricula = 1;
 
-    Cliente(
+    public Cliente(
         String cpf, 
         String nome
     ) 
@@ -22,7 +22,7 @@ public class Cliente extends Pessoa {
         super(cpf, nome);
     }
     
-    Cliente(
+    public Cliente(
         String cpf, 
         String nome,
         Conta conta
