@@ -41,11 +41,8 @@ public class CarteiraContas implements IAuditoria {
     public CarteiraContas getContasByCliente(Cliente c) {
         CarteiraContas contasCliente = new CarteiraContas();
         for (Conta conta : contas) {
-            if(c.getMatricula() == conta.getMatriculaCliente()) {
-                contasCliente.adicionarConta(conta);
-            } else {
-                continue;
-            }
+            if(c.getMatricula() != conta.getMatriculaCliente()) continue;
+            contasCliente.adicionarConta(conta);
         }
         return contasCliente;
     }
