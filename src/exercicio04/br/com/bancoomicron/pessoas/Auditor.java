@@ -8,7 +8,7 @@ package exercicio04.br.com.bancoomicron.pessoas;
 import exercicio04.br.com.bancoomicron.carteiras.IAuditoria;
 
 public class Auditor extends Pessoa {
-    Auditor(String cpf, String nome) {
+    public Auditor(String cpf, String nome) {
         super(cpf, nome);
     }
     
