@@ -24,6 +24,8 @@ public class Main {
         System.out.println("Digite a quantidade de km rodados do carro: ");
         double km_rodados = sc.nextDouble();
 
+        sc.close();
+        
         Veiculo veiculo = new Veiculo(
             marca,
             modelo,
