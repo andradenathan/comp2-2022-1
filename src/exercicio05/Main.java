@@ -1,8 +1,10 @@
+/**
+ * Autor: Nathan Andrade dos Santos Lobo
+ * DRE: 120082390
+ */
 package exercicio05;
 
 import java.util.Scanner;
-
-import exercicio05.Veiculo;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,11 +33,11 @@ public class Main {
         );
 
         System.out.println("----------");
-        System.out.println("Veiculo de " + nome);
-        System.out.println("Marca: " + marca);
-        System.out.println("Modelo: " + modelo);
-        System.out.println("Capacidade do tanque: " + capacidade_tanque);
-        System.out.println("Quilometros rodados: " + km_rodados);
+        System.out.println("Veiculo de " + veiculo.dono);
+        System.out.println("Marca: " + veiculo.marca);
+        System.out.println("Modelo: " + veiculo.modelo);
+        System.out.println("Capacidade do tanque: " + veiculo.lerTanqueCapacid());
+        System.out.println("Quilometros rodados: " + veiculo.lerAutonomia());
         System.out.println("----------");
     }    
 }
