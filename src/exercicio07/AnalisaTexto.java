@@ -1,3 +1,8 @@
+/**
+ * Autor: Nathan Andrade dos Santos Lobo
+ * DRE: 120082390
+*/
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,21 +16,28 @@ import java.util.Set;
 
 public class AnalisaTexto {
     public String caminho;
-    
+    public ArrayList<String> conteudos;
+
     public AnalisaTexto(String caminho) {
         this.caminho = caminho;
 
-        ArrayList<String> conteudos = this.pegarConteudos();
+        ArrayList<String> conteudosNaoFormatado = this.pegarConteudos();
 
         for (int index = 0; index < conteudos.size(); index++) {
-            String conteudo = conteudos.get(index);
-            conteudos.set(index, conteudo.toUpperCase());
+            String conteudo = conteudosNaoFormatado.get(index);
+            String[] conteudoSeparado = conteudo.split(" ");
+            for (String palavra : conteudoSeparado) {
+                this.conteudos.add(palavra.toUpperCase());
+            }
         }
-        
-        adicionarConteudos(conteudos);
+
+        this.adicionarConteudos(this.conteudos);
     }
+
+    //TODO: Implementação do método do construtor overloaded
+    public AnalisaTexto(String caminho, String caminhoTextoFiltrado) {}
     
-    public Set pegarPalavrasUnicas() {
+    public Set<String> pegarPalavrasUnicas() {
         Set<String> palavrasUnicas = new HashSet<String>();
         try {
             FileReader fileReader = new FileReader(this.caminho);
@@ -91,18 +103,22 @@ public class AnalisaTexto {
         return conteudos;
     }
 
-    public void adicionarConteudos(ArrayList<String> contents) {
+    public void adicionarConteudos(ArrayList<String> conteudos) {
         try {
             FileWriter fileWriter = new FileWriter(this.caminho);
             PrintWriter writer = new PrintWriter(fileWriter);
             
-            for (String content : contents) {
-                writer.println(content);
+            for (String conteudo : conteudos) {
+                writer.println(conteudo);
             }
             
             writer.close();
         } catch(IOException ioException) {
             System.out.println("Error ao salvar o conteúdo: " + ioException.getMessage());
         }
+    }
+
+    public String removePontuacoes(String palavra) {
+        return palavra.replaceAll("\\p{Punct}", "");
     }
 }

@@ -1,3 +1,8 @@
+/**
+    Autor: Nathan Andrade dos Santos Lobo
+    DRE: 120082390
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
