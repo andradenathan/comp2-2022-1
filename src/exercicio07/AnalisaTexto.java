@@ -16,14 +16,14 @@ import java.util.Set;
 
 public class AnalisaTexto {
     public String caminho;
-    public ArrayList<String> conteudos;
+    public ArrayList<String> conteudos = new ArrayList<String>();
 
     public AnalisaTexto(String caminho) {
         this.caminho = caminho;
 
-        ArrayList<String> conteudosNaoFormatado = this.pegarConteudos();
+        ArrayList<String> conteudosNaoFormatado = this.pegarConteudos(caminho);
 
-        for (int index = 0; index < conteudos.size(); index++) {
+        for (int index = 0; index < conteudosNaoFormatado.size(); index++) {
             String conteudo = conteudosNaoFormatado.get(index);
             String[] conteudoSeparado = conteudo.split(" ");
             for (String palavra : conteudoSeparado) {
@@ -34,8 +34,34 @@ public class AnalisaTexto {
         this.adicionarConteudos(this.conteudos);
     }
 
-    //TODO: Implementação do método do construtor overloaded
-    public AnalisaTexto(String caminho, String caminhoTextoFiltrado) {}
+    public AnalisaTexto(String caminho, String caminhoStopWords) {
+        this.caminho = caminho;
+
+        ArrayList<String> conteudosFiltrados = this.pegarConteudos(caminho);
+        ArrayList<String> palavras = this.pegarConteudos(caminhoStopWords);
+
+        for (int index = 0; index < conteudosFiltrados.size(); index++) {
+            String conteudo = conteudosFiltrados.get(index);
+            String[] conteudoSeparado = conteudo.split(" ");
+            for (String palavra : conteudoSeparado) {
+                palavra = this.removePontuacoes(palavra);
+                this.conteudos.add(palavra.toUpperCase());
+            }
+        }
+
+        this.adicionarConteudos(this.conteudos);
+
+        for(int index = 0; index < palavras.size(); index++) {
+            String palavra = palavras.get(index);
+            if(conteudosFiltrados.contains(palavra.toUpperCase())) {
+                palavra = this.removePontuacoes(palavra);
+                while(conteudosFiltrados.remove(palavra.toUpperCase()));
+            }
+        }
+
+        this.conteudos = conteudosFiltrados;
+        System.out.println(conteudos);
+    }
     
     public Set<String> pegarPalavrasUnicas() {
         Set<String> palavrasUnicas = new HashSet<String>();
@@ -62,7 +88,7 @@ public class AnalisaTexto {
     
     public Map<String, Integer> computarFrequencia() {
         Map<String, Integer> frequenciasDasPalavras = new HashMap<String, Integer>();
-        ArrayList<String> conteudos = this.pegarConteudos();
+        ArrayList<String> conteudos = this.pegarConteudos(this.caminho);
 
         for (String conteudo : conteudos) {
             int frequencia = 1;
@@ -80,11 +106,11 @@ public class AnalisaTexto {
         return frequenciasDasPalavras;
     }
 
-    public ArrayList<String> pegarConteudos() {
+    public ArrayList<String> pegarConteudos(String caminho) {
         ArrayList<String> conteudos = new ArrayList<String>();
 
         try {
-            FileReader fileReader = new FileReader(this.caminho);
+            FileReader fileReader = new FileReader(caminho);
             BufferedReader reader = new BufferedReader(fileReader);
             
             for(

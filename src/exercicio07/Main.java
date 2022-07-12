@@ -16,10 +16,10 @@ public class Main {
             path = System.getProperty("user.dir") + "/src/exercicio07/output.txt";
         
         sc.close();
-        
-        AnalisaTexto texto = new AnalisaTexto(path);
-        Map<String, Integer> palavras = texto.computarFrequencia();
-        Set<String> palavrasUnicas = texto.pegarPalavrasUnicas();
+
+        AnalisaTexto texto = new AnalisaTexto(path, "src/exercicio07/stopwords.txt");
+        // Map<String, Integer> palavras = texto.computarFrequencia();
+        // Set<String> palavrasUnicas = texto.pegarPalavrasUnicas();
         
         // System.out.println("------");
         // System.out.println(palavrasUnicas);
