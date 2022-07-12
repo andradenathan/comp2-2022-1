@@ -40,6 +40,13 @@ public class AnalisaTexto {
         ArrayList<String> conteudosFiltrados = this.pegarConteudos(caminho);
         ArrayList<String> palavras = this.pegarConteudos(caminhoStopWords);
 
+        for(int index = 0; index < palavras.size(); index++) {
+            String palavra = palavras.get(index);
+            if(conteudosFiltrados.contains(palavra.toUpperCase())) {
+                while(conteudosFiltrados.remove(palavra.toUpperCase()));
+            }
+        }
+
         for (int index = 0; index < conteudosFiltrados.size(); index++) {
             String conteudo = conteudosFiltrados.get(index);
             String[] conteudoSeparado = conteudo.split(" ");
@@ -50,17 +57,6 @@ public class AnalisaTexto {
         }
 
         this.adicionarConteudos(this.conteudos);
-
-        for(int index = 0; index < palavras.size(); index++) {
-            String palavra = palavras.get(index);
-            if(conteudosFiltrados.contains(palavra.toUpperCase())) {
-                palavra = this.removePontuacoes(palavra);
-                while(conteudosFiltrados.remove(palavra.toUpperCase()));
-            }
-        }
-
-        this.conteudos = conteudosFiltrados;
-        System.out.println(conteudos);
     }
     
     public Set<String> pegarPalavrasUnicas() {

@@ -11,19 +11,20 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String path = sc.nextLine();
+        String stopwords = "src/exercicio07/stopwords.txt";
 
         if(path.equals(".")) 
-            path = System.getProperty("user.dir") + "/src/exercicio07/output.txt";
+            path = System.getProperty("user.dir") + "/src/exercicio07/in.txt";
         
         sc.close();
 
-        AnalisaTexto texto = new AnalisaTexto(path, "src/exercicio07/stopwords.txt");
-        // Map<String, Integer> palavras = texto.computarFrequencia();
-        // Set<String> palavrasUnicas = texto.pegarPalavrasUnicas();
+        AnalisaTexto texto = new AnalisaTexto(path, stopwords);
+        Map<String, Integer> palavras = texto.computarFrequencia();
+        Set<String> palavrasUnicas = texto.pegarPalavrasUnicas();
         
-        // System.out.println("------");
-        // System.out.println(palavrasUnicas);
-        // System.out.println("------");
-        // System.out.println(palavras);
+        System.out.println("------");
+        System.out.println(palavrasUnicas);
+        System.out.println("------");
+        System.out.println(palavras);
     }
 }
