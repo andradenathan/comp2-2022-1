@@ -5,142 +5,90 @@
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 public class AnalisaTexto {
-    public String caminho;
-    public ArrayList<String> conteudos = new ArrayList<String>();
+    private ArrayList<String> palavras;
 
     public AnalisaTexto(String caminho) {
-        this.caminho = caminho;
-
-        ArrayList<String> conteudosNaoFormatado = this.pegarConteudos(caminho);
-
-        for (int index = 0; index < conteudosNaoFormatado.size(); index++) {
-            String conteudo = conteudosNaoFormatado.get(index);
-            String[] conteudoSeparado = conteudo.split(" ");
-            for (String palavra : conteudoSeparado) {
-                this.conteudos.add(palavra.toUpperCase());
-            }
-        }
-
-        this.adicionarConteudos(this.conteudos);
+        this.palavras = this.lerArquivo(caminho);
     }
 
     public AnalisaTexto(String caminho, String caminhoStopWords) {
-        this.caminho = caminho;
-
-        ArrayList<String> conteudosFiltrados = this.pegarConteudos(caminho);
-        ArrayList<String> palavras = this.pegarConteudos(caminhoStopWords);
-
-        for(int index = 0; index < palavras.size(); index++) {
-            String palavra = palavras.get(index);
-            if(conteudosFiltrados.contains(palavra.toUpperCase())) {
-                while(conteudosFiltrados.remove(palavra.toUpperCase()));
-            }
-        }
-
-        for (int index = 0; index < conteudosFiltrados.size(); index++) {
-            String conteudo = conteudosFiltrados.get(index);
-            String[] conteudoSeparado = conteudo.split(" ");
-            for (String palavra : conteudoSeparado) {
-                palavra = this.removePontuacoes(palavra);
-                this.conteudos.add(palavra.toUpperCase());
-            }
-        }
-
-        this.adicionarConteudos(this.conteudos);
+        this(caminho);
+        ArrayList<String> stopwords = this.lerArquivo(caminhoStopWords);
+        this.filtrarStopWords(stopwords);
     }
     
-    public Set<String> pegarPalavrasUnicas() {
-        Set<String> palavrasUnicas = new HashSet<String>();
+    public ArrayList<String> lerArquivo(String caminho) {
         try {
-            FileReader fileReader = new FileReader(this.caminho);
+            FileReader fileReader = new FileReader(caminho);
             BufferedReader reader = new BufferedReader(fileReader);
-
-            for(
-                String palavra = reader.readLine(); 
-                palavra != null; 
-                palavra = reader.readLine()
-            ) 
-            {
-                palavrasUnicas.add(palavra);
+            String linhas = "", linha;
+            while((linha = reader.readLine()) != null) {
+                linhas += " " + linha;
             }
-            
             reader.close();
-        } catch(IOException ioException) {
-            System.out.println("Error ao ler o arquivo: " + ioException.getMessage());
+
+            linhas = linhas.toUpperCase(Locale.ROOT);
+            linhas = linhas.replaceAll("\\p{Punct}", "");
+
+            String[] palavrasFormatadas = linhas.split(" ");
+            System.out.println(Arrays.toString(palavrasFormatadas));
+            ArrayList<String> resultado = new ArrayList<String>();
+
+            for(int index = 0; index < palavrasFormatadas.length; ++index) {
+                resultado.add(palavrasFormatadas[index]);   
+            }
+
+            System.out.println("Sucesso ao ler arquivo");
+            return resultado;
+        } catch (IOException ioe) {
+            System.out.println("Erro ao ler arquivo" + ioe.getMessage());
         }
 
+        return null;
+    }
+
+    public Set<String> pegarPalavrasUnicas() {
+        Set<String> palavrasUnicas = new HashSet<String>();
+        palavrasUnicas.addAll(this.palavras);
         return palavrasUnicas;
     }
     
     public Map<String, Integer> computarFrequencia() {
         Map<String, Integer> frequenciasDasPalavras = new HashMap<String, Integer>();
-        ArrayList<String> conteudos = this.pegarConteudos(this.caminho);
-
-        for (String conteudo : conteudos) {
+        for (String palavra : palavras) {
             int frequencia = 1;
 
-            if(frequenciasDasPalavras.containsKey(conteudo)) {
+            if(frequenciasDasPalavras.containsKey(palavra)) {
                 frequenciasDasPalavras.put(
-                    conteudo, 
-                    frequenciasDasPalavras.get(conteudo) + 1
+                    palavra, 
+                    frequenciasDasPalavras.get(palavra) + 1
                 );
             } else {
-                frequenciasDasPalavras.put(conteudo, frequencia);
+                frequenciasDasPalavras.put(palavra, frequencia);
             }
         }
 
         return frequenciasDasPalavras;
     }
 
-    public ArrayList<String> pegarConteudos(String caminho) {
-        ArrayList<String> conteudos = new ArrayList<String>();
-
-        try {
-            FileReader fileReader = new FileReader(caminho);
-            BufferedReader reader = new BufferedReader(fileReader);
-            
-            for(
-                String conteudo = reader.readLine(); 
-                conteudo != null; 
-                conteudo = reader.readLine()
-            ) {
-                conteudos.add(conteudo);
+    private void filtrarStopWords(ArrayList<String> stopwords) {
+        ArrayList<String> palavrasFiltradas = new ArrayList<String>();
+        for(String palavra : palavras) {
+            if(!stopwords.contains(palavra)) {
+                palavrasFiltradas.add(palavra);
             }
-            
-            reader.close();
-        } catch(IOException ioException) {
-            System.out.println("Error ao ler o arquivo: " + ioException.getMessage());
         }
 
-        return conteudos;
-    }
-
-    public void adicionarConteudos(ArrayList<String> conteudos) {
-        try {
-            FileWriter fileWriter = new FileWriter(this.caminho);
-            PrintWriter writer = new PrintWriter(fileWriter);
-            
-            for (String conteudo : conteudos) {
-                writer.println(conteudo);
-            }
-            
-            writer.close();
-        } catch(IOException ioException) {
-            System.out.println("Error ao salvar o conteúdo: " + ioException.getMessage());
-        }
-    }
-
-    public String removePontuacoes(String palavra) {
-        return palavra.replaceAll("\\p{Punct}", "");
+        this.palavras = palavrasFiltradas;
     }
 }
