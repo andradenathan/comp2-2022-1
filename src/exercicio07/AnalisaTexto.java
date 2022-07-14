@@ -3,18 +3,20 @@
  * DRE: 120082390
 */
 
+package exercicio07;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public class AnalisaTexto {
+public class AnalisaTexto implements Serializable {
     private ArrayList<String> palavras;
 
     public AnalisaTexto(String caminho) {
@@ -41,14 +43,11 @@ public class AnalisaTexto {
             linhas = linhas.replaceAll("\\p{Punct}", "");
 
             String[] palavrasFormatadas = linhas.split(" ");
-            System.out.println(Arrays.toString(palavrasFormatadas));
             ArrayList<String> resultado = new ArrayList<String>();
 
             for(int index = 0; index < palavrasFormatadas.length; ++index) {
                 resultado.add(palavrasFormatadas[index]);   
             }
-
-            System.out.println("Sucesso ao ler arquivo");
             return resultado;
         } catch (IOException ioe) {
             System.out.println("Erro ao ler arquivo" + ioe.getMessage());
@@ -91,4 +90,14 @@ public class AnalisaTexto {
 
         this.palavras = palavrasFiltradas;
     }
+
+    public boolean equals(AnalisaTexto outro) {
+        if(this.palavras.size() != outro.palavras.size()) return false;
+        for(int index = 0; index < this.palavras.size(); index++) {
+            if(!this.palavras.get(index).equals(outro.palavras.get(index))) {
+                return false;
+            }
+        }
+        return true;
+    } 
 }

@@ -3,6 +3,8 @@
     DRE: 120082390
  */
 
+package exercicio07;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.Scanner;
